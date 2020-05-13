@@ -1,0 +1,25 @@
+# This task list many ways to get status from your devices
+- name: Get some status
+  hosts: vqfx10k
+  connection: local
+  gather_facts: no
+
+  roles:
+    - Juniper.junos
+
+
+  tasks:
+
+#-
+   - name: Retrieve information from devices running Junos
+     juniper_junos_facts:
+        config_format: "json"
+     register: version
+
+   - debug:
+       msg: "{{version}}"
+
+   - name: collect default set of facts and configuration
+     junos_facts:
+       gather_subset: config
+
