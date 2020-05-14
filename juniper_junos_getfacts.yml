@@ -11,15 +11,14 @@
   tasks:
 
 #-
-   - name: Retrieve information from devices running Junos
-     juniper_junos_facts:
-        config_format: "json"
-     register: version
+   - name: get lldp neighbor table
+     juniper_junos_rpc:
+        rpc: get-lldp-neighbors-information
+        format: text
+        #format: json
+        #format: xml
+     register: output
 
    - debug:
-       msg: "{{version}}"
-
-   - name: collect default set of facts and configuration
-     junos_facts:
-       gather_subset: config
+       msg: "{{output}}"
 
